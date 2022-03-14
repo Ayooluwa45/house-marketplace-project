@@ -1,5 +1,6 @@
 import { useState } from "react";
-import {setDoc, doc, serverTimestamp} from 'firebase/firestore'
+import { toast } from "react-toastify";
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getAuth,
@@ -41,14 +42,14 @@ function SignUp() {
         displayName: name,
       });
 
-const formDataCopy= {...formData}
-delete formData.password
-formDataCopy.timestamp= serverTimestamp()
-await setDoc(doc(db, 'users', user.uid), formDataCopy)
+      const formDataCopy = { ...formData };
+      delete formData.password;
+      formDataCopy.timestamp = serverTimestamp();
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
 
-      navigate('/')
+      navigate("/");
     } catch (error) {
-      console.log(error);
+      toast.error("Something went wrong");
     }
   };
 
@@ -94,9 +95,9 @@ await setDoc(doc(db, 'users', user.uid), formDataCopy)
           </Link>
           <div className="signUpBar">
             <p className="signUpText">Sign Up</p>
-             <button className="signUpButton">
+            <button className="signUpButton">
               <ArrowRightIcon fill="#ffffff" width="36px" height="34px" />
-            </button> 
+            </button>
           </div>
         </form>
 
