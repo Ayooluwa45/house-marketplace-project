@@ -32,8 +32,8 @@ function Offers() {
         const q = query(
           listingRef,
           where("type", "==", params.categoryName),
-          orderBy("timestamp", "desc"),
-          limit(10)
+         /*  orderBy("timestamp", "desc"),
+          limit(10) */
         );
 
         //Execute query
@@ -47,12 +47,14 @@ function Offers() {
                 data: doc.data()
             })
         })
+       
         setListings(listings)
         setLoading(false)
       } catch (error) {
           toast.error('Could not fetch listings')
       }
     };
+    
     fetchListings()
   },[params.categoryName]);
 

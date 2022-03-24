@@ -15,9 +15,10 @@ import Spinner from '../components/Spinner'
 
 function CreateListing() {
   // eslint-disable-next-line
+  const [formData, setFormData] = useState(initialFormState)
   const [geolocationEnabled, setGeolocationEnabled] = useState(true)
   const [loading, setLoading] = useState(false)
-  const [formData, setFormData] = useState({
+  const initialFormState = {
     type: 'rent',
     name: '',
     bedrooms: 1,
@@ -31,7 +32,7 @@ function CreateListing() {
     images: {},
     latitude: 0,
     longitude: 0,
-  })
+  }
 
   const {
     type,
@@ -54,21 +55,18 @@ function CreateListing() {
   const isMounted = useRef(true)
 
   useEffect(() => {
-    if (isMounted) {
-      onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-          setFormData({ ...formData, userRef: user.uid })
+          setFormData({ ...initialFormState, userRef: user.uid })
         } else {
           navigate('/sign-in')
         }
       })
-    }
+    
 
-    return () => {
-      isMounted.current = false
-    }
+    return unsubscribe
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMounted])
+  }, [auth, navigate])
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -96,7 +94,7 @@ function CreateListing() {
       )
 
       const data = await response.json()
-      console.log(data)
+      
 
       geolocation.lat = data.results[0]?.geometry.location.lat ?? 0
       geolocation.long = data.results[0]?.geometry.location.long ?? 0
