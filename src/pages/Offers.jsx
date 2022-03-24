@@ -39,7 +39,7 @@ function Offers() {
         //Execute query
         const querySnap = await getDocs(q)
 
-        const listings = []
+       const listings = []
 
         querySnap.forEach((doc)=>{
             return listings.push({
@@ -47,7 +47,7 @@ function Offers() {
                 data: doc.data()
             })
         })
-       
+       console.log(listings)
         setListings(listings)
         setLoading(false)
       } catch (error) {

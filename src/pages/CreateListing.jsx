@@ -13,27 +13,29 @@ import { toast } from 'react-toastify'
 import { v4 as uuidv4 } from 'uuid'
 import Spinner from '../components/Spinner'
 
+const initialFormState = {
+  type: 'rent',
+  name: '',
+  bedrooms: 1,
+  bathrooms: 1,
+  parking: false,
+  furnished: false,
+  address: '',
+  offer: false,
+  regularPrice: 0,
+  discountedPrice: 0,
+  images: {},
+  latitude: 0,
+  longitude: 0,
+}
+
+
 function CreateListing() {
   // eslint-disable-next-line
   const [formData, setFormData] = useState(initialFormState)
   const [geolocationEnabled, setGeolocationEnabled] = useState(true)
   const [loading, setLoading] = useState(false)
-  const initialFormState = {
-    type: 'rent',
-    name: '',
-    bedrooms: 1,
-    bathrooms: 1,
-    parking: false,
-    furnished: false,
-    address: '',
-    offer: false,
-    regularPrice: 0,
-    discountedPrice: 0,
-    images: {},
-    latitude: 0,
-    longitude: 0,
-  }
-
+ 
   const {
     type,
     name,
@@ -52,7 +54,7 @@ function CreateListing() {
 
   const auth = getAuth()
   const navigate = useNavigate()
-  const isMounted = useRef(true)
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -155,7 +157,7 @@ function CreateListing() {
       })
     }
 
-    const imgUrls = await Promise.all(
+    const imageUrls = await Promise.all(
       [...images].map((image) => storeImage(image))
     ).catch(() => {
       setLoading(false)
@@ -165,7 +167,7 @@ function CreateListing() {
 
     const formDataCopy = {
       ...formData,
-      imgUrls,
+      imageUrls,
       geolocation,
       timestamp: serverTimestamp(),
     }
