@@ -167,7 +167,7 @@ function Offers() {
           listingsRef,
           where('offer', '==', true),
           orderBy('timestamp', 'desc'),
-          limit(10)
+          limit(10) 
         )
 
         // Execute query
@@ -206,8 +206,8 @@ function Offers() {
         listingsRef,
         where('offer', '==', true),
         orderBy('timestamp', 'desc'),
-        startAfter(lastFetchedListing),
-        limit(10)
+         startAfter(lastFetchedListing),
+        limit(10) 
       )
 
       // Execute query
