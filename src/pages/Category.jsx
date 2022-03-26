@@ -42,14 +42,15 @@ function Category() {
         const lastVisible = querySnap.docs[querySnap.docs.length - 1]
         setLastFetchedListing(lastVisible)
 
-        const listings = []
-
-        querySnap.forEach((doc)=>{
-            return listings.push({
+        const listings =
+        []
+         querySnap.forEach((doc)=>{
+           return listings.push({
                 id: doc.id,
                 data: doc.data()
-            })
+            
         })
+      })
         setListings(listings)
         setLoading(false)
       } catch (error) {
