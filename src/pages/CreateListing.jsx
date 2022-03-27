@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import {
   getStorage,
@@ -33,7 +33,7 @@ const initialFormState = {
 function CreateListing() {
   // eslint-disable-next-line
   const [formData, setFormData] = useState(initialFormState)
-  const [geolocationEnabled, setGeolocationEnabled] = useState(true)
+  const [geolocationEnabled] = useState(true)
   const [loading, setLoading] = useState(false)
  
   const {

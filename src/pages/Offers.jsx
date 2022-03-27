@@ -193,6 +193,7 @@ function Offers() {
     }
     console.log(listings)
     fetchListings()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Pagination / Load More
